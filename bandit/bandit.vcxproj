@@ -127,7 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="coin.cpp" />
+    <ClCompile Include="creditscore.cpp" />
+    <ClCompile Include="dollar.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="slot.cpp" />
+    <ClCompile Include="slotmachine.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="coin.h" />
+    <ClInclude Include="creditscore.h" />
+    <ClInclude Include="dollar.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="slot.h" />
+    <ClInclude Include="slotmachine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
