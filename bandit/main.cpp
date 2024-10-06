@@ -13,26 +13,21 @@ int main()
 	player p1(player_name);
 	int number_of_dollar_coins{ 0 };
 	std::cout << "Ihr Guthaben ihr leer.  Wieviele Dollar moechten Sie einwerfen?\n";
-	//while (p1.get_creditscore().compute_balance() <= 0) {
-	//while (1) {
+	while (p1.get_creditscore().compute_balance() <= 0) {
 		std::cout << "[f] 5 Dollar\n";
 		std::cout << "[z] 10 Dollar\n";
 		char option{ '0' };
 		std::cin >> option;
 		switch (option) {
 		case 'f': {
-			dollar d;
-			std::cout << "d value: " << d.get_value() << "\n";
-			coin* c = &d;
-			std::cout << "c value: " << c->get_value() << "\n";
+			coin* c = new dollar();
 			for (auto i = 0; i < 5; ++i) {
 				machine.insert_coin(p1, *c);
 			}
 			break;
 		}
 		case 'z': {
-			dollar d;
-			coin* c = &d;
+			coin* c = new dollar();
 			for (auto i = 0; i < 10; ++i) {
 				machine.insert_coin(p1, *c);
 			}
@@ -42,8 +37,8 @@ int main()
 			std::cout << "Ungueltige Eingabe!\n";
 			break;
 		}
-	//}
-	//p1.print_info();
+	}
+	p1.print_info();
 
 	return 0;
 }

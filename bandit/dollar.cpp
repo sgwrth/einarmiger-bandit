@@ -11,5 +11,3 @@ int dollar::get_value()
 {
 	return value;
 }
-
-//dollar::~dollar() {}
