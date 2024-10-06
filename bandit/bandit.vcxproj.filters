@@ -33,9 +33,6 @@
     <ClCompile Include="creditscore.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="coin.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="dollar.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -56,10 +53,10 @@
     <ClInclude Include="creditscore.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="coin.h">
+    <ClInclude Include="dollar.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="dollar.h">
+    <ClInclude Include="coin.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

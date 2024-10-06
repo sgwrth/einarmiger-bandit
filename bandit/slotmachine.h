@@ -4,6 +4,6 @@
 
 class slotmachine {
 public:
-	void insertCoin(player player, coin coin);
+	void insert_coin(player& player, coin& coin);
 };
 

@@ -1,9 +1,10 @@
 #pragma once
-#include <iostream>
+#include <string>
 
 class coin {
 public:
-	std::string name;
-	int value;
+	virtual std::string get_name() = 0;
+	virtual int get_value() = 0;
+	virtual ~coin() {};
 };
 

@@ -3,7 +3,11 @@
 
 class dollar : public coin {
 public:
-	dollar(std::string name, int value);
+	dollar();
+	std::string get_name() override;
+	int get_value() override;
+	//~dollar();
+private:
 	std::string name;
 	int value;
 };

@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="coin.cpp" />
     <ClCompile Include="creditscore.cpp" />
     <ClCompile Include="dollar.cpp" />
     <ClCompile Include="game.cpp" />

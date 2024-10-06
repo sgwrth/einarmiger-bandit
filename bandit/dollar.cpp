@@ -1,3 +1,15 @@
 #include "dollar.h"
 
-dollar::dollar(std::string name, int value) : name{ "Dollar" }, value{ 100 } {}
+dollar::dollar() : name{ "Dollar" }, value{ 100 } {}
+
+std::string dollar::get_name()
+{
+	return name;
+}
+
+int dollar::get_value()
+{
+	return value;
+}
+
+//dollar::~dollar() {}
