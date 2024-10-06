@@ -4,9 +4,12 @@
 
 class creditscore {
 public:
-	std::vector<coin*> coins;
-	std::vector<coin*>& get_coins();
-	void add_to_balance(std::vector<coin*>& coins, coin& coin);
+	std::vector<std::shared_ptr<coin>> coins;
+	std::vector<std::shared_ptr<coin>>& get_coins();
+	void add_to_balance(
+			std::vector<std::shared_ptr<coin>>& coins,
+			std::shared_ptr<coin> coin
+	);
 	long compute_balance();
 };
 

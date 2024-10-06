@@ -1,14 +1,16 @@
 #include <iostream>
 #include "creditscore.h"
 
-std::vector<coin*>& creditscore::get_coins()
+std::vector<std::shared_ptr<coin>>& creditscore::get_coins()
 {
 	return coins;
 }
 
-void creditscore::add_to_balance(std::vector<coin*>& coins, coin& coin)
-{
-	coins.push_back(&coin);
+void creditscore::add_to_balance(
+		std::vector<std::shared_ptr<coin>>& coins,
+		std::shared_ptr<coin> coin
+) {
+	coins.push_back(coin);
 }
 
 long creditscore::compute_balance()

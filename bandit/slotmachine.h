@@ -4,6 +4,6 @@
 
 class slotmachine {
 public:
-	void insert_coin(player& player, coin& coin);
+	void insert_coin(player& player, std::shared_ptr<coin> coin);
 };
 

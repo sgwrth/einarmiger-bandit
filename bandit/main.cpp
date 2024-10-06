@@ -20,16 +20,16 @@ int main()
 		std::cin >> option;
 		switch (option) {
 		case 'f': {
-			coin* c = new dollar();
+			std::shared_ptr<coin> c = std::make_shared<dollar>();
 			for (auto i = 0; i < 5; ++i) {
-				machine.insert_coin(p1, *c);
+				machine.insert_coin(p1, c);
 			}
 			break;
 		}
 		case 'z': {
-			coin* c = new dollar();
+			std::shared_ptr<coin> c = std::make_shared<dollar>();
 			for (auto i = 0; i < 10; ++i) {
-				machine.insert_coin(p1, *c);
+				machine.insert_coin(p1, c);
 			}
 			break;
 		}
