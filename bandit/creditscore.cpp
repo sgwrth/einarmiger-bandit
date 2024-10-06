@@ -19,7 +19,7 @@ long creditscore::compute_balance()
 	if (coins.size() == 0) {
 		return 0;
 	}
-	for (size_t i = 0; i < coins.size(); ++i) {
+	for (auto i = 0; i < coins.size(); ++i) {
 		total_credit += coins[i]->get_value();
 	}
 	return total_credit;

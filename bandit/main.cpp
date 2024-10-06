@@ -1,22 +1,24 @@
 #include <iostream>
+#include <string>
 #include "dollar.h"
+#include "messages.h"
+#include "numbergen.h"
 #include "slotmachine.h"
 
 int main()
 {
-	std::cout << "hello, world!\n";
-
 	slotmachine machine;
-	std::cout << "Spielernamen eingeben!\n";
-	std::string player_name{ "" };
+	messages messages;
+	std::cout << messages.PROMPT_FOR_NAME;
+	std::string player_name{};
 	std::cin >> player_name;
 	player p1(player_name);
 	int number_of_dollar_coins{ 0 };
-	std::cout << "Ihr Guthaben ihr leer.  Wieviele Dollar moechten Sie einwerfen?\n";
+	std::cout << messages.PROMPT_FOR_PAYMENT;
 	while (p1.get_creditscore().compute_balance() <= 0) {
 		std::cout << "[f] 5 Dollar\n";
 		std::cout << "[z] 10 Dollar\n";
-		char option{ '0' };
+		char option{};
 		std::cin >> option;
 		switch (option) {
 		case 'f': {
@@ -34,11 +36,18 @@ int main()
 			break;
 		}
 		default:
-			std::cout << "Ungueltige Eingabe!\n";
+			std::cout << messages.ERROR_INVALID_INPUT;
 			break;
 		}
 	}
 	p1.print_info();
+
+	auto numbergen = numbergen::get_instance();
+	std::cout << numbergen->number_generator() % 10 << "\n";
+
+	std::cout << machine.slots[0]->number << "\n";
+	std::cout << machine.slots[1]->number << "\n";
+	std::cout << machine.slots[2]->number << "\n";
 
 	return 0;
 }
