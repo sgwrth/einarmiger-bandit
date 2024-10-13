@@ -41,29 +41,38 @@ int main()
 			break;
 		}
 	}
+	p1.get_creditscore()->add_amount_to_balance(p1.get_creditscore()->compute_balance());
 	p1.print_info();
+	std::cout << p1.get_creditscore()->get_balance() << "\n";
 
 	auto numbergen = Numbergen::get_instance();
 
+	char pull{};
+	while (pull != 'n' && p1.get_creditscore()->get_balance() >= 100) {
+		pull = 'x';
+		for (auto i = 0; i < machine.slots.size(); ++i) {
+			machine.slots[i]->number = numbergen->number_generator() % 10;
+		}
+		std::cout << "[" << machine.slots[0]->number << "] ";
+		std::cout << "[" << machine.slots[1]->number << "] ";
+		std::cout << "[" << machine.slots[2]->number << "]\n";
 
-	//char pull{};
-	//while (pull != 'n') {
-	//	pull = 'x';
-	//	for (auto i = 0; i < machine.slots.size(); ++i) {
-	//		machine.slots[i]->number = numbergen->number_generator() % 10;
-	//	}
-	//	std::cout << "[" << machine.slots[0]->number << "] ";
-	//	std::cout << "[" << machine.slots[1]->number << "] ";
-	//	std::cout << "[" << machine.slots[2]->number << "]\n";
+		p1.get_creditscore()->process_result(machine);
+		std::cout << "Guthaben: " << p1.get_creditscore()->get_balance() << "\n";
 
-	//	while (pull != 'y' && pull != 'n') {
-	//		std::cout << "Nochmal ziehen? [y/n]\n";
-	//		std::cin >> pull;
-	//		if (pull != 'y' && pull != 'n') {
-	//			std::cout << messages.ERROR_INVALID_INPUT;
-	//		}
-	//	}
-	//}
+		if (p1.get_creditscore()->get_balance() < 100) {
+			std::cout << "Sorry, nicht genug Guthaben :(\n";
+			break;
+		}
+
+		while (pull != 'y' && pull != 'n') {
+			std::cout << "Nochmal ziehen? [y/n]\n";
+			std::cin >> pull;
+			if (pull != 'y' && pull != 'n') {
+				std::cout << messages.ERROR_INVALID_INPUT;
+			}
+		}
+	}
 
 	return 0;
 }

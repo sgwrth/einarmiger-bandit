@@ -15,7 +15,7 @@ Slotmachine::Result Slotmachine::get_result()
 			&& slots[1]->number == slots[0]->number) {
 		return Result::WIN;
 	}
-	if (slots[2]->number == slots[1]->number) {
+	if (slots[1]->number == slots[0]->number) {
 		return Result::MONEY_BACK;
 	}
 	return Result::LOSE;

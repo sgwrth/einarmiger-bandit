@@ -10,9 +10,10 @@ public:
 	Creditscore();
 	std::vector<std::shared_ptr<Coin>> coins;
 	std::vector<std::shared_ptr<Coin>>& get_coins();
-	void set_balance(long amount);
+	void add_amount_to_balance(long amount);
 	void add_to_balance(std::shared_ptr<Coin> coin);
 	void process_result(Slotmachine& machine);
+	long get_balance() const;
 	long compute_balance();
 private:
 	long balance;

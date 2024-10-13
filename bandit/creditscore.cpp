@@ -12,7 +12,7 @@ std::vector<std::shared_ptr<Coin>>& Creditscore::get_coins()
 	return coins;
 }
 
-void Creditscore::set_balance(long amount)
+void Creditscore::add_amount_to_balance(long amount)
 {
 	balance = balance + amount;
 }
@@ -34,15 +34,23 @@ long Creditscore::compute_balance()
 	return total_credit;
 }
 
+long Creditscore::get_balance() const
+{
+	return balance;
+}
+
 void Creditscore::process_result(Slotmachine& machine)
 {
 	if (machine.get_result() == Slotmachine::Result::WIN) {
-		set_balance(1000);
+		std::cout << "WIN!\n";
+		add_amount_to_balance(1000);
 	}
 	if (machine.get_result() == Slotmachine::Result::MONEY_BACK) {
+		std::cout << "MONEY BACK!\n";
 		return;
 	}
 	if (machine.get_result() == Slotmachine::Result::LOSE) {
-		set_balance(-100);
+		std::cout << "SORRY, YOU LOSE!\n";
+		add_amount_to_balance(-100);
 	}
 }
