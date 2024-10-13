@@ -21,13 +21,7 @@
     <ClCompile Include="player.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="slotmachine.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="slot.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="creditscore.cpp">
@@ -45,9 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="player.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="slotmachine.h">

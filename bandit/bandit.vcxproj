@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,19 +130,16 @@
   <ItemGroup>
     <ClCompile Include="creditscore.cpp" />
     <ClCompile Include="dollar.cpp" />
-    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="numbergen.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="slot.cpp" />
     <ClCompile Include="slotmachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coin.h" />
     <ClInclude Include="creditscore.h" />
     <ClInclude Include="dollar.h" />
-    <ClInclude Include="game.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="numbergen.h" />
     <ClInclude Include="player.h" />

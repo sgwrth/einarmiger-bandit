@@ -1,9 +1,11 @@
-#pragma once
+#ifndef DOLLAR_H
+#define DOLLAR_H
+#include <string>
 #include "coin.h"
 
-class dollar : public coin {
+class Dollar : public Coin {
 public:
-	dollar();
+	Dollar();
 	std::string get_name() override;
 	int get_value() override;
 private:
@@ -11,3 +13,4 @@ private:
 	int value;
 };
 
+#endif

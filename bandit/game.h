@@ -1,4 +1,8 @@
-#pragma once
-class game {
+#ifndef GAME_H
+#define GAME_H
+
+class Game {
 };
+
+#endif
 

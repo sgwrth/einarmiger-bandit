@@ -1,12 +1,14 @@
-#pragma once
+#ifndef NUMBERGEN_H
+#define NUMBERGEN_H
 #include <random>
 
-class numbergen {
+class Numbergen {
 public:
-	static numbergen* get_instance();
+	static Numbergen* get_instance();
 	std::mt19937 number_generator;
 private:
-	numbergen();
-	static numbergen* instance;
+	Numbergen();
+	static Numbergen* instance;
 };
 
+#endif

@@ -1,8 +1,9 @@
-#pragma once
+#ifndef SLOT_H
+#define SLOT_H
 
-class slot {
+class Slot {
 public:
-	slot();
 	int number;
 };
 
+#endif

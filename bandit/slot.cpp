@@ -1,6 +1,3 @@
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
 #include "slot.h"
 
-slot::slot() : number{ 0 } {}
+Slot::Slot() : number{ 0 } {}

@@ -1,21 +1,20 @@
-#include <chrono>
-#include <random>
 #include "numbergen.h"
+#include <chrono>
 
-numbergen::numbergen()
+Numbergen::Numbergen()
 {
 	std::mt19937 gen;
 	gen.seed(std::chrono::system_clock::now().time_since_epoch().count());
 	number_generator = gen;
 }
 
-numbergen* numbergen::get_instance()
+Numbergen* Numbergen::instance = nullptr;
+
+Numbergen* Numbergen::get_instance()
 {
 	if (instance != nullptr) {
 		return instance;
 	} else {
-		return new numbergen();
+		return new Numbergen();
 	}
 }
-
-numbergen* numbergen::instance = nullptr;

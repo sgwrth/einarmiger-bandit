@@ -1,20 +1,22 @@
-#include <iostream>
 #include "player.h"
+#include <iostream>
 
-player::player(std::string name) : name{ name } {}
+Player::Player(std::string name)
+		: name{ name }
+		, creditscore{ std::make_shared<Creditscore>() } {}
 
-std::string player::get_name()
+std::string Player::get_name()
 {
 	return name;
 }
 
-creditscore& player::get_creditscore()
+std::shared_ptr<Creditscore> Player::get_creditscore()
 {
 	return creditscore;
 }
 
-void player::print_info()
+void Player::print_info()
 {
 	std::cout << "Spieler: " << get_name() << "\n";
-	std::cout << "Guthaben: " << get_creditscore().compute_balance() << "\n";
+	std::cout << "Guthaben: " << creditscore->compute_balance() << "\n";
 }

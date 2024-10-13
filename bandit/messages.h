@@ -1,11 +1,13 @@
-#pragma once
+#ifndef MESSAGES_H
+#define MESSAGES_H
 #include <string>
 
-class messages {
+class Messages {
 public:
-	messages();
+	Messages();
 	std::string PROMPT_FOR_NAME;
 	std::string PROMPT_FOR_PAYMENT;
 	std::string ERROR_INVALID_INPUT;
 };
 
+#endif

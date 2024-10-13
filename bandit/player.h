@@ -1,15 +1,18 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+#include <memory>
 #include <string>
 #include "creditscore.h"
 
-class player {
+class Player {
 public:
-	player(std::string name);
+	Player(std::string name);
 	std::string get_name();
-	creditscore& get_creditscore();
+	std::shared_ptr<Creditscore> get_creditscore();
 	void print_info();
 private:
 	std::string name;
-	creditscore creditscore;
+	std::shared_ptr<Creditscore> creditscore;
 };
 
+#endif

@@ -1,14 +1,26 @@
-#include <memory>
 #include "slotmachine.h"
 
-slotmachine::slotmachine()
+Slotmachine::Slotmachine()
 		: slots{
-				std::make_shared<slot>(),
-				std::make_shared<slot>(),
-				std::make_shared<slot>()
+				std::make_shared<Slot>(),
+				std::make_shared<Slot>(),
+				std::make_shared<Slot>()
 		} {}
 
-void slotmachine::insert_coin(player& player, std::shared_ptr<coin> coin)
+void Slotmachine::insert_coin(Player& player, std::shared_ptr<Coin> coin)
 {
-	player.get_creditscore().add_to_balance(player.get_creditscore().get_coins(), coin);
+	std::vector<std::shared_ptr<Coin>> coins = player.get_creditscore()->get_coins();
+	player.get_creditscore()->add_to_balance(coins, coin);
+}
+
+Slotmachine::Result Slotmachine::get_result()
+{
+	if (slots[2]->number == slots[1]->number
+			&& slots[1]->number == slots[0]->number) {
+		return Result::WIN;
+	}
+	if (slots[2]->number == slots[1]->number) {
+		return Result::MONEY_BACK;
+	}
+	return Result::LOSE;
 }

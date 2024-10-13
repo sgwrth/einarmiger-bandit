@@ -1,6 +1,6 @@
 #include "messages.h"
 
-messages::messages() :
+Messages::Messages() :
 	PROMPT_FOR_NAME{ "Spielernamen eingeben!\n" },
 	PROMPT_FOR_PAYMENT{ "Ihr Guthaben betraegt 0.  Wieviele Dollar moechten Sie "
 			"einwerfen ?\n" },
