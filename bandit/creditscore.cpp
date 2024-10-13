@@ -1,4 +1,9 @@
 #include "creditscore.h"
+#include <iostream>
+#include <memory>
+#include <vector>
+#include "coin.h"
+#include "slotmachine.h"
 
 Creditscore::Creditscore() : balance{ 0 }, coins{} {}
 
@@ -12,10 +17,8 @@ void Creditscore::set_balance(long amount)
 	balance = balance + amount;
 }
 
-void Creditscore::add_to_balance(
-		std::vector<std::shared_ptr<Coin>>& coins,
-		std::shared_ptr<Coin> coin
-) {
+void Creditscore::add_to_balance(std::shared_ptr<Coin> coin)
+{
 	coins.push_back(coin);
 }
 

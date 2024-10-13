@@ -25,14 +25,14 @@ int main()
 		case 'f': {
 			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
 			for (auto i = 0; i < 5; ++i) {
-				machine.insert_coin(p1, c);
+				p1.insert_coin(c);
 			}
 			break;
 		}
 		case 'z': {
 			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
 			for (auto i = 0; i < 10; ++i) {
-				machine.insert_coin(p1, c);
+				p1.insert_coin(c);
 			}
 			break;
 		}

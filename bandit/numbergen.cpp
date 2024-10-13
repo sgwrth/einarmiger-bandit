@@ -1,5 +1,6 @@
 #include "numbergen.h"
 #include <chrono>
+#include <random>
 
 Numbergen::Numbergen()
 {

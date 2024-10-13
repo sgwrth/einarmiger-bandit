@@ -1,4 +1,5 @@
 #include "dollar.h"
+#include <string>
 
 Dollar::Dollar() : name{ "Dollar" }, value{ 100 } {}
 
