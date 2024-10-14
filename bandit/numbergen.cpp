@@ -1,5 +1,6 @@
 #include "numbergen.h"
 #include <chrono>
+#include <memory>
 #include <random>
 
 Numbergen::Numbergen()
@@ -9,13 +10,13 @@ Numbergen::Numbergen()
 	number_generator = gen;
 }
 
-Numbergen* Numbergen::instance = nullptr;
+std::shared_ptr<Numbergen> Numbergen::instance = std::make_shared<Numbergen>();
 
-Numbergen* Numbergen::get_instance()
+std::shared_ptr<Numbergen> Numbergen::get_instance()
 {
 	if (instance != nullptr) {
 		return instance;
 	} else {
-		return new Numbergen();
+		return std::make_shared<Numbergen>();
 	}
 }

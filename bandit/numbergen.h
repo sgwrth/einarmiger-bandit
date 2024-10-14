@@ -1,14 +1,15 @@
 #ifndef NUMBERGEN_H
 #define NUMBERGEN_H
+#include <memory>
 #include <random>
 
 class Numbergen {
 public:
-	static Numbergen* get_instance();
+	static std::shared_ptr<Numbergen> get_instance();
 	std::mt19937 number_generator;
-private:
 	Numbergen();
-	static Numbergen* instance;
+private:
+	static std::shared_ptr<Numbergen> instance;
 };
 
 #endif
