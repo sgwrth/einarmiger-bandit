@@ -10,7 +10,9 @@ Numbergen::Numbergen()
 	number_generator = gen;
 }
 
-std::shared_ptr<Numbergen> Numbergen::instance = std::make_shared<Numbergen>();
+std::shared_ptr<Numbergen> Numbergen::instance = nullptr;
+
+//std::shared_ptr<Numbergen> Numbergen::instance = get_instance();
 
 std::shared_ptr<Numbergen> Numbergen::get_instance()
 {

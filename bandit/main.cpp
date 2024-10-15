@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include "Coin.h"
 #include "Dollar.h"
@@ -17,21 +18,29 @@ int main()
 	int number_of_dollar_coins{ 0 };
 	std::cout << messages.PROMPT_FOR_PAYMENT;
 	while (p1.get_creditscore()->compute_balance() <= 0) {
-		std::cout << "[f] 5 Dollar\n";
-		std::cout << "[z] 10 Dollar\n";
+		std::cout << "[1] 5 Dollar\n";
+		std::cout << "[2] 10 Dollar\n";
+		std::cout << "[3] 20 Dollar\n";
 		char option{};
 		std::cin >> option;
 		switch (option) {
-		case 'f': {
+		case '1': {
 			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
 			for (auto i = 0; i < 5; ++i) {
 				p1.insert_coin(c);
 			}
 			break;
 		}
-		case 'z': {
+		case '2': {
 			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
 			for (auto i = 0; i < 10; ++i) {
+				p1.insert_coin(c);
+			}
+			break;
+		}
+		case '3': {
+			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
+			for (auto i = 0; i < 20; ++i) {
 				p1.insert_coin(c);
 			}
 			break;
@@ -47,16 +56,30 @@ int main()
 
 	auto numbergen = Numbergen::get_instance();
 
+	if (p1.get_creditscore()->get_balance() >= 200) {
+		std::cout << "Sie duerfen '20 Drehs' spielen!  Ihr 'Highscore' nach dem letzten "
+			"Dreh wird gespeichert!  Los gehts!\n";
+		int pulls_left{ 20 };
+		while (pulls_left > 0) {
+			machine.spin_slots(numbergen);
+			machine.print_slot_numbers();
+			p1.get_creditscore()->process_result(machine);
+			std::cout << "Guthaben: " << p1.get_creditscore()->get_balance() << "\n";
+			std::cout << "Press any key to continue!\n";
+			std::cin.clear();
+			std::cin.ignore();
+			--pulls_left;
+		}
+		std::ofstream highscore_file{ "./highscore.txt" };
+		highscore_file << p1.get_creditscore()->get_balance();
+		std::cout << "Thanks for playing!\n";
+	}
+
 	char pull{};
 	while (pull != 'n' && p1.get_creditscore()->get_balance() >= 100) {
 		pull = 'x';
-		for (auto i = 0; i < machine.slots.size(); ++i) {
-			machine.slots[i]->number = numbergen->number_generator() % 10;
-		}
-		std::cout << "[" << machine.slots[0]->number << "] ";
-		std::cout << "[" << machine.slots[1]->number << "] ";
-		std::cout << "[" << machine.slots[2]->number << "]\n";
-
+		machine.spin_slots(numbergen);
+		machine.print_slot_numbers();
 		p1.get_creditscore()->process_result(machine);
 		std::cout << "Guthaben: " << p1.get_creditscore()->get_balance() << "\n";
 
