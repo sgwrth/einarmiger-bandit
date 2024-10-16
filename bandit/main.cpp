@@ -1,3 +1,5 @@
+#include <chrono>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include "Coin.h"
@@ -70,8 +72,29 @@ int main()
 			std::cin.ignore();
 			--pulls_left;
 		}
-		std::ofstream highscore_file{ "./highscore.txt" };
-		highscore_file << p1.get_creditscore()->get_balance();
+		auto highscores = std::make_shared<std::vector<std::string>>();
+		std::ifstream highscore_in{ "./highscore.txt" };
+		while (highscore_in) {
+			std::string temp;
+			highscore_in >> temp;
+			highscores->push_back(temp);
+		}
+		for (std::string hs : *highscores) {
+			std::cout << hs << "\n";
+		}
+
+		std::ofstream highscore_out{ "./highscore.txt" };
+		for (std::string hs : *highscores) {
+			highscore_out << hs;
+		}
+		auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+		highscore_out
+				<< "\n"
+				<< p1.get_name()
+				<< " - "
+				<< p1.get_creditscore()->get_balance()
+				<< " - "
+				<< std::ctime(&time);
 		std::cout << "Thanks for playing!\n";
 	}
 
