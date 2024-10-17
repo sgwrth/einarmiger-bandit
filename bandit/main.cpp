@@ -72,24 +72,33 @@ int main()
 			std::cin.ignore();
 			--pulls_left;
 		}
+
 		auto highscores = std::make_shared<std::vector<std::string>>();
 		std::ifstream highscore_in{ "./highscore.txt" };
+
 		while (highscore_in) {
 			std::string temp;
-			highscore_in >> temp;
+			std::getline(highscore_in, temp);
 			highscores->push_back(temp);
 		}
+
+		// control output
 		for (std::string hs : *highscores) {
 			std::cout << hs << "\n";
 		}
 
 		std::ofstream highscore_out{ "./highscore.txt" };
-		for (std::string hs : *highscores) {
-			highscore_out << hs;
+		for (auto i = 0; i < highscores->size(); ++i) {
+			if (i != (highscores->size() - 1)) {
+				highscore_out << highscores->at(i) << "\n";
+			}
+			else {
+				highscore_out << highscores->at(i);
+			}
 		}
+
 		auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 		highscore_out
-				<< "\n"
 				<< p1.get_name()
 				<< " - "
 				<< p1.get_creditscore()->get_balance()
