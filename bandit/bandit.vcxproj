@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="creditscore.cpp" />
     <ClCompile Include="dollar.cpp" />
+    <ClCompile Include="highscore.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="numbergen.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="coin.h" />
     <ClInclude Include="creditscore.h" />
     <ClInclude Include="dollar.h" />
+    <ClInclude Include="highscore.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="numbergen.h" />
     <ClInclude Include="player.h" />

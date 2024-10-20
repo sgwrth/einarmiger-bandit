@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Coin.h"
 #include "Dollar.h"
+#include "highscore.h"
 #include "Messages.h"
 #include "Numbergen.h"
 #include "Player.h"
@@ -73,12 +74,20 @@ int main()
 			--pulls_left;
 		}
 
-		auto highscores = std::make_shared<std::vector<std::string>>();
-		std::ifstream highscore_in{ "./highscore.txt" };
+		//auto highscores = std::make_shared<std::vector<std::string>>();
+		//std::cout << &(*highscores) << "\n";
 
-		while (highscore_in) {
+		Highscore hi_score("./highscore.txt");
+		hi_score.read_old_highscores();
+		hi_score.print_highscores();
+		hi_score.write_old_highscores();
+
+		//std::ifstream highscores_in{ "./highscore.txt" };
+
+		/*
+		while (highscores_in) {
 			std::string temp;
-			std::getline(highscore_in, temp);
+			std::getline(highscores_in, temp);
 			highscores->push_back(temp);
 		}
 
@@ -87,27 +96,36 @@ int main()
 			std::cout << hs << "\n";
 		}
 
-		std::ofstream highscore_out{ "./highscore.txt" };
+		std::ofstream highscores_out{ "./highscore.txt" };
+
 		for (auto i = 0; i < highscores->size(); ++i) {
 			if (i != (highscores->size() - 1)) {
-				highscore_out << highscores->at(i) << "\n";
+				highscores_out << highscores->at(i) << "\n";
 			}
 			else {
-				highscore_out << highscores->at(i);
+				highscores_out << highscores->at(i);
 			}
 		}
+		*/
 
 		auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-		highscore_out
+
+		hi_score.append_new_highscore(p1, time);
+
+		/*
+		hi_score.highscores_out
 				<< p1.get_name()
 				<< " - "
 				<< p1.get_creditscore()->get_balance()
 				<< " - "
 				<< std::ctime(&time);
+		*/
+
 		std::cout << "Thanks for playing!\n";
 	}
 
 	char pull{};
+
 	while (pull != 'n' && p1.get_creditscore()->get_balance() >= 100) {
 		pull = 'x';
 		machine.spin_slots(numbergen);
