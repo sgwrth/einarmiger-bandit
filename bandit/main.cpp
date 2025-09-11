@@ -1,5 +1,4 @@
 #include <chrono>
-#include <ctime>
 #include <fstream>
 #include <iostream>
 #include "Coin.h"
@@ -74,17 +73,16 @@ int main()
 			--pulls_left;
 		}
 
-		//auto highscores = std::make_shared<std::vector<std::string>>();
-		//std::cout << &(*highscores) << "\n";
+		auto highscores = std::make_shared<std::vector<std::string>>();
+		std::cout << &(*highscores) << "\n";
 
 		Highscore hi_score("./highscore.txt");
 		hi_score.read_old_highscores();
 		hi_score.print_highscores();
 		hi_score.write_old_highscores();
 
-		//std::ifstream highscores_in{ "./highscore.txt" };
+		std::ifstream highscores_in{ "./highscore.txt" };
 
-		/*
 		while (highscores_in) {
 			std::string temp;
 			std::getline(highscores_in, temp);
@@ -106,20 +104,16 @@ int main()
 				highscores_out << highscores->at(i);
 			}
 		}
-		*/
 
 		auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
 		hi_score.append_new_highscore(p1, time);
 
-		/*
 		hi_score.highscores_out
-				<< p1.get_name()
-				<< " - "
-				<< p1.get_creditscore()->get_balance()
-				<< " - "
-				<< std::ctime(&time);
-		*/
+			<< p1.get_name()
+			<< " - "
+			<< p1.get_creditscore()->get_balance()
+			<< " - ";
 
 		std::cout << "Thanks for playing!\n";
 	}

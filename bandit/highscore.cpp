@@ -48,9 +48,8 @@ void Highscore::append_new_highscore(Player& p, time_t time)
 {
 	std::cout << &(*highscores);
 	highscores_out
-			<< p.get_name()
-			<< " - "
-			<< p.get_creditscore()->get_balance()
-			<< " - "
-			<< std::ctime(&time);
+		<< p.get_name()
+		<< " - "
+		<< p.get_creditscore()->get_balance()
+		<< " - ";
 }
