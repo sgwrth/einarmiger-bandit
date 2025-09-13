@@ -17,7 +17,7 @@ public:
 	void read_old_highscores();
 	void print_highscores();
 	void write_old_highscores();
-	void append_new_highscore(Player& p, time_t time);
+	void append_new_highscore(Player& p, time_t* time);
 };
 
 #endif

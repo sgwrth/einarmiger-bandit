@@ -1,21 +1,20 @@
 #include "highscore.h"
+#include <ctime>
 #include <iostream>
 #include <memory>
 #include <string>
+#include <time.h>
 #include <vector>
 #include "player.h"
 
 Highscore::Highscore(std::string highscores_file)
-		: highscores{ std::make_shared<std::vector<std::string>>()}
-		, highscores_in{ highscores_file }
-		, highscores_out{ highscores_file }
-{
-	std::cout << &(*highscores) << "\n";
-}
+		: highscores{std::make_shared<std::vector<std::string>>()}
+		, highscores_in{highscores_file}
+		, highscores_out{highscores_file}
+{}
 
 void Highscore::read_old_highscores()
 {
-	std::cout << &(*highscores) << "\n";
 	while (highscores_in) {
 		std::string temp;
 		std::getline(highscores_in, temp);
@@ -25,7 +24,6 @@ void Highscore::read_old_highscores()
 
 void Highscore::print_highscores()
 {
-	std::cout << &(*highscores) << "\n";
 	for (std::string hs : *highscores) {
 		std::cout << hs << "\n";
 	}
@@ -33,23 +31,40 @@ void Highscore::print_highscores()
 
 void Highscore::write_old_highscores()
 {
-	std::cout << &(*highscores) << "\n";
+	auto latest_highscore_idx = highscores->size() - 1;
+
 	for (auto i = 0; i < highscores->size(); ++i) {
-		if (i != (highscores->size() - 1)) {
+		if (i != latest_highscore_idx) {
 			highscores_out << highscores->at(i) << "\n";
-		}
-		else {
+		} else {
 			highscores_out << highscores->at(i);
 		}
 	}
 }
 
-void Highscore::append_new_highscore(Player& p, time_t time)
+void Highscore::append_new_highscore(Player& p, time_t* time)
 {
-	std::cout << &(*highscores);
+	char buff[100];
+	struct tm time_tm;
+	errno_t err = localtime_s(&time_tm, time);
+
+	if (err != 0) {
+		std::cout << "some localtime_s error\n";
+		return;
+	}
+
+	int result = strftime(buff, sizeof(buff), "%c", &time_tm);
+
+	if (result == 0) {
+		std::cout << "some strftime error\n";
+		return;
+	}
+
 	highscores_out
 		<< p.get_name()
 		<< " - "
 		<< p.get_creditscore()->get_balance()
-		<< " - ";
+		<< " - "
+		<< buff
+		<< "\n";
 }
