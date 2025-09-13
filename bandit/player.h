@@ -2,8 +2,9 @@
 #define PLAYER_H
 #include <memory>
 #include <string>
-#include "coin.h"
 #include "creditscore.h"
+
+class Coin;
 
 class Player {
 public:

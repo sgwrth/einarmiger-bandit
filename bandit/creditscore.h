@@ -2,8 +2,9 @@
 #define CREDITSCORE_H
 #include <memory>
 #include <vector>
-#include "coin.h"
-#include "slotmachine.h"
+
+class Coin;
+class Slotmachine;
 
 class Creditscore {
 public:

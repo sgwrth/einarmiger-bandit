@@ -1,12 +1,12 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
-#include "Coin.h"
-#include "Dollar.h"
+#include "coin.h"
+#include "dollar.h"
 #include "highscore.h"
-#include "Messages.h"
-#include "Numbergen.h"
-#include "Player.h"
+#include "messages.h"
+#include "numbergen.h"
+#include "player.h"
 #include "slotmachine.h"
 
 int main()
@@ -17,41 +17,13 @@ int main()
 	std::string player_name{};
 	std::cin >> player_name;
 	Player p1(player_name);
-	int number_of_dollar_coins{ 0 };
+	int number_of_dollar_coins{};
 	std::cout << messages.PROMPT_FOR_PAYMENT;
+
 	while (p1.get_creditscore()->compute_balance() <= 0) {
-		std::cout << "[1] 5 Dollar\n";
-		std::cout << "[2] 10 Dollar\n";
-		std::cout << "[3] 20 Dollar\n";
-		char option{};
-		std::cin >> option;
-		switch (option) {
-		case '1': {
-			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
-			for (auto i = 0; i < 5; ++i) {
-				p1.insert_coin(c);
-			}
-			break;
-		}
-		case '2': {
-			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
-			for (auto i = 0; i < 10; ++i) {
-				p1.insert_coin(c);
-			}
-			break;
-		}
-		case '3': {
-			std::shared_ptr<Coin> c = std::make_shared<Dollar>();
-			for (auto i = 0; i < 20; ++i) {
-				p1.insert_coin(c);
-			}
-			break;
-		}
-		default:
-			std::cout << messages.ERROR_INVALID_INPUT;
-			break;
-		}
+		machine.offer_to_buy_credits(p1);
 	}
+
 	p1.get_creditscore()->add_amount_to_balance(p1.get_creditscore()->compute_balance());
 	p1.print_info();
 	std::cout << p1.get_creditscore()->get_balance() << "\n";
@@ -61,7 +33,8 @@ int main()
 	if (p1.get_creditscore()->get_balance() >= 200) {
 		std::cout << "Sie duerfen '20 Drehs' spielen!  Ihr 'Highscore' nach dem letzten "
 			"Dreh wird gespeichert!  Los gehts!\n";
-		int pulls_left{ 20 };
+		int pulls_left{20};
+
 		while (pulls_left > 0) {
 			machine.spin_slots(numbergen);
 			machine.print_slot_numbers();
@@ -120,6 +93,7 @@ int main()
 
 	char pull{};
 
+	/*
 	while (pull != 'n' && p1.get_creditscore()->get_balance() >= 100) {
 		pull = 'x';
 		machine.spin_slots(numbergen);
@@ -140,6 +114,7 @@ int main()
 			}
 		}
 	}
+	*/
 
 	return 0;
 }

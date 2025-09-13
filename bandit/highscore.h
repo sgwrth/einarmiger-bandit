@@ -1,10 +1,11 @@
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
-#include "player.h"
 #include <fstream>
 #include <memory>
 #include <string>
 #include <vector>
+
+class Player;
 
 class Highscore
 {

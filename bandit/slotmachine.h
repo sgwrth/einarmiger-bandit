@@ -2,9 +2,10 @@
 #define SLOTMACHINE_H
 #include <array>
 #include <memory>
-#include "coin.h"
-#include "numbergen.h"
-#include "slot.h"
+
+class Numbergen;
+class Player;
+class Slot;
 
 class Slotmachine {
 public:
@@ -14,6 +15,7 @@ public:
 	Result get_result();
 	void spin_slots(std::shared_ptr<Numbergen> numbergen);
 	void print_slot_numbers();
+	void offer_to_buy_credits(Player& player);
 };
 
 #endif

@@ -5,7 +5,9 @@
 #include "coin.h"
 #include "slotmachine.h"
 
-Creditscore::Creditscore() : balance{ 0 }, coins{} {}
+Creditscore::Creditscore()
+	: balance{0}
+	, coins{} {}
 
 std::vector<std::shared_ptr<Coin>>& Creditscore::get_coins()
 {
@@ -24,7 +26,7 @@ void Creditscore::add_to_balance(std::shared_ptr<Coin> coin)
 
 long Creditscore::compute_balance()
 {
-	long total_credit{ 0 };
+	long total_credit{0};
 	if (coins.size() == 0) {
 		return 0;
 	}
