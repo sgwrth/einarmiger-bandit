@@ -11,14 +11,13 @@ class Highscore
 {
 public:
 	Highscore(std::string highscores_file_in, std::string highscores_file_out);
-	~Highscore();
 	std::shared_ptr<std::vector<std::string>> highscores;
 	std::ifstream highscores_in;
 	std::ofstream highscores_out;
 	void read_old_highscores();
-	void print_highscores();
+	void print_highscores() const;
 	void write_old_highscores();
-	void append_new_highscore(Player& p, time_t* time);
+	void append_new_highscore(Player& p);
 };
 
 #endif

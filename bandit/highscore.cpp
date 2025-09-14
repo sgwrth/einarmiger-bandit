@@ -1,4 +1,5 @@
 #include "highscore.h"
+#include <chrono>
 #include <ctime>
 #include <fstream>
 #include <iostream>
@@ -14,26 +15,15 @@ Highscore::Highscore(std::string filepath_in, std::string filepath_out)
 		, highscores_out(filepath_out, std::ios::app)
 {}
 
-
-Highscore::~Highscore() {
-	if (highscores_in.is_open()) {
-		highscores_in.close();
-	}
-	if (highscores_out.is_open()) {
-		highscores_out.close();
-	}
-}
-
 void Highscore::read_old_highscores()
 {
 	std::string line;
 	while (std::getline(highscores_in, line)) {
-		std::cout << "adding to highscores: " << line << "\n";
 		highscores->push_back(line);
 	}
 }
 
-void Highscore::print_highscores()
+void Highscore::print_highscores() const
 {
 	for (const auto& hiscore : *highscores) {
 		std::cout << hiscore << "\n";
@@ -47,17 +37,19 @@ void Highscore::write_old_highscores()
 	}
 }
 
-void Highscore::append_new_highscore(Player& p, time_t* time)
+void Highscore::append_new_highscore(Player& player)
 {
-	char buff[100];
+	time_t time
+		= std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 	struct tm time_tm;
-	errno_t err = localtime_s(&time_tm, time);
+	errno_t err = localtime_s(&time_tm, &time);
 
 	if (err != 0) {
 		std::cout << "some localtime_s error\n";
 		return;
 	}
 
+	char buff[100];
 	int result = strftime(buff, sizeof(buff), "%c", &time_tm);
 
 	if (result == 0) {
@@ -66,10 +58,10 @@ void Highscore::append_new_highscore(Player& p, time_t* time)
 	}
 
 	highscores_out
-		<< p.get_name()
-		<< " - "
-		<< p.get_creditscore()->get_balance()
-		<< " - "
 		<< buff
+		<< " - "
+		<< player.get_name()
+		<< " - "
+		<< player.get_creditscore()->get_balance()
 		<< "\n";
 }

@@ -1,4 +1,3 @@
-#include <chrono>
 #include <fstream>
 #include <iostream>
 #include "coin.h"
@@ -29,7 +28,6 @@ int main()
 		->add_amount_to_balance(p1.get_creditscore()->compute_balance());
 	p1.print_info();
 	std::cout << p1.get_creditscore()->get_balance() << "\n";
-	auto numbergen = Numbergen::get_instance();
 
 	if (p1.get_creditscore()->get_balance() >= 200) {
 		std::cout
@@ -37,6 +35,7 @@ int main()
 			<< " letzten Dreh wird gespeichert!  Los gehts!\n";
 		int pulls_left{20};
 
+		auto numbergen = Numbergen::get_instance();
 		while (pulls_left > 0) {
 			machine.spin_slots(numbergen);
 			machine.print_slot_numbers();
@@ -62,50 +61,15 @@ int main()
 	const std::string hiscore_temp_filepath = "./hiscore_temp.txt";
 	const std::string hiscore_temp_filename = "hiscore_temp.txt";
 
-	// Open input file "highscore.txt"
-	std::ifstream old_hiscore_file(hiscore_filepath);
-
-	// Copy "highscore.txt" --> "hiscore_temp.txt"
-	std::ofstream hiscore_temp_file(hiscore_temp_filepath);
-	Util::copy_file(old_hiscore_file, hiscore_temp_file);
-	hiscore_temp_file.close();
-
-	/**
-	* Scoped the Highscore object to guarantee that it is destroyed
-	* before calling the delete_file function on it, as a still live
-	* object might be holding on to its fstream members, even when
-	* they have been closed.
-	*/
-	{
-		// Create highscore_table from "highscore.txt" (in) and "hiscore_temp.txt" (out)
-		Highscore highscore_table(hiscore_filepath, hiscore_temp_filepath);
-
-		// Populate highscores vector with data from "highscore.txt"
-		highscore_table.read_old_highscores();
-
-		// Copy highscores from "highscores" to "highscores_out"
-		highscore_table.write_old_highscores();
-
-		// highscore_table.print_highscores();
-
-		time_t time
-			= std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-		time_t* time_ptr = &time;
-		highscore_table.append_new_highscore(p1, time_ptr);
-		std::cout << "Thanks for playing!\n";
-
-		// Closing files
-		old_hiscore_file.close();
-		highscore_table.highscores_in.close();
-		highscore_table.highscores_out.close();
-	}
-
-	// Delete "highscore.txt"
+	Highscore highscore_table(hiscore_filepath, hiscore_temp_filepath);
+	highscore_table.read_old_highscores();
+	highscore_table.write_old_highscores();
+	highscore_table.append_new_highscore(p1);
+	highscore_table.highscores_in.close();
+	highscore_table.highscores_out.close();
 	Util::delete_file(hiscore_filepath);
-
-	// Rename "hiscore_temp.txt" to "highscore.txt"
 	Util::rename_file(hiscore_temp_filepath, hiscore_filename);
-
+	std::cout << "Thanks for playing!\n";
 
 	/*
 	char pull{};
