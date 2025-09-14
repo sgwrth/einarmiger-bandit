@@ -1,5 +1,6 @@
 #include "highscore.h"
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -7,38 +8,42 @@
 #include <vector>
 #include "player.h"
 
-Highscore::Highscore(std::string highscores_file)
+Highscore::Highscore(std::string filepath_in, std::string filepath_out)
 		: highscores{std::make_shared<std::vector<std::string>>()}
-		, highscores_in{highscores_file}
-		, highscores_out{highscores_file}
+		, highscores_in{filepath_in}
+		, highscores_out(filepath_out, std::ios::app)
 {}
+
+
+Highscore::~Highscore() {
+	if (highscores_in.is_open()) {
+		highscores_in.close();
+	}
+	if (highscores_out.is_open()) {
+		highscores_out.close();
+	}
+}
 
 void Highscore::read_old_highscores()
 {
-	while (highscores_in) {
-		std::string temp;
-		std::getline(highscores_in, temp);
-		highscores->push_back(temp);
+	std::string line;
+	while (std::getline(highscores_in, line)) {
+		std::cout << "adding to highscores: " << line << "\n";
+		highscores->push_back(line);
 	}
 }
 
 void Highscore::print_highscores()
 {
-	for (std::string hs : *highscores) {
-		std::cout << hs << "\n";
+	for (const auto& hiscore : *highscores) {
+		std::cout << hiscore << "\n";
 	}
 }
 
 void Highscore::write_old_highscores()
 {
-	auto latest_highscore_idx = highscores->size() - 1;
-
-	for (auto i = 0; i < highscores->size(); ++i) {
-		if (i != latest_highscore_idx) {
-			highscores_out << highscores->at(i) << "\n";
-		} else {
-			highscores_out << highscores->at(i);
-		}
+	for (const auto& hiscore : *highscores) {
+		highscores_out << hiscore << "\n";
 	}
 }
 

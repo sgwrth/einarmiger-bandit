@@ -10,7 +10,8 @@ class Player;
 class Highscore
 {
 public:
-	Highscore(std::string highscores_file);
+	Highscore(std::string highscores_file_in, std::string highscores_file_out);
+	~Highscore();
 	std::shared_ptr<std::vector<std::string>> highscores;
 	std::ifstream highscores_in;
 	std::ofstream highscores_out;
