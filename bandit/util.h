@@ -12,6 +12,8 @@ public:
 		const std::string& filepath,
 		const std::string& new_file_name
 	);
+	static std::string get_str_input();
+	static void print_msg(const std::string& msg);
 };
 
 #endif

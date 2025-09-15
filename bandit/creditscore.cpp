@@ -7,7 +7,8 @@
 
 Creditscore::Creditscore()
 	: balance{0}
-	, coins{} {}
+	, coins{}
+{}
 
 std::vector<std::shared_ptr<Coin>>& Creditscore::get_coins()
 {

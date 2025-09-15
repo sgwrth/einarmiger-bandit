@@ -23,7 +23,6 @@ void Slotmachine::offer_to_buy_credits(Player& player) {
 	std::cin >> option;
 	std::cin.clear();
 	std::cin.ignore();
-
 	Messages messages;
 
 	switch (option) {

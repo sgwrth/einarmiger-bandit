@@ -1,5 +1,6 @@
 #include "util.h"
 #include <filesystem>
+#include <iostream>
 #include <fstream>
 #include <string>
 
@@ -23,4 +24,18 @@ void Util::rename_file(
 	auto old_filepath = std::filesystem::path(old_filename);
 	auto new_filepath = std::filesystem::path(new_filename);
 	std::filesystem::rename(old_filepath, new_filepath);
+}
+
+std::string Util::get_str_input()
+{
+	std::string input;
+	std::cin >> input;
+	std::cin.clear();
+	std::cin.ignore();
+	return input;
+}
+
+void Util::print_msg(const std::string& msg)
+{
+	std::cout << msg;
 }
