@@ -11,4 +11,5 @@ Messages::Messages()
 	, MSG_NOT_ENOUGH_CREDITS{"Sorry, nicht genug Guthaben :(\n"}
 	, MSG_THANKS_FOR_PLAYING{"Thank you for playing!\n"}
 	, MSG_BALANCE{"Guthaben:\n"}
+	, MSG_NO_HISCORE{"Sorry, Sie habe keinen Highscore erreicht!\n"}
 {}

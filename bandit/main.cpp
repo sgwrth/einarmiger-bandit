@@ -28,6 +28,7 @@ int main()
 
 	if (p1.get_creditscore()->get_balance() >= 200) {
 		Util::print_msg(messages.MSG_START_GAME);
+		std::cin.get();
 		int pulls_left{20};
 		auto numbergen = Numbergen::get_instance();
 
@@ -35,17 +36,23 @@ int main()
 			machine.spin_slots(numbergen);
 			machine.print_slot_numbers();
 			p1.get_creditscore()->process_result(machine);
-			Util::print_msg(messages.MSG_BALANCE);
-			p1.print_balance();
-			Util::print_msg(messages.MSG_ANY_KEY_TO_CONT);
-			std::cin.get();
-			--pulls_left;
 
 			if (p1.get_creditscore()->get_balance() < 100) {
 				Util::print_msg(messages.MSG_NOT_ENOUGH_CREDITS);
 				break;
 			}
+
+			Util::print_msg(messages.MSG_BALANCE);
+			p1.print_balance();
+			Util::print_msg(messages.MSG_ANY_KEY_TO_CONT);
+			std::cin.get();
+			--pulls_left;
 		}
+	}
+
+	if (p1.get_creditscore()->get_balance() <= 0) {
+		Util::print_msg(messages.MSG_NO_HISCORE);
+		return 0;
 	}
 
 	const std::string hiscore_filepath = "./highscore.txt";
@@ -61,31 +68,6 @@ int main()
 	Util::delete_file(hiscore_filepath);
 	Util::rename_file(hiscore_temp_filepath, hiscore_filename);
 	Util::print_msg(messages.MSG_THANKS_FOR_PLAYING);
-
-	/*
-	char pull{};
-
-	while (pull != 'n' && p1.get_creditscore()->get_balance() >= 100) {
-		pull = 'x';
-		machine.spin_slots(numbergen);
-		machine.print_slot_numbers();
-		p1.get_creditscore()->process_result(machine);
-		std::cout << "Guthaben: " << p1.get_creditscore()->get_balance() << "\n";
-
-		if (p1.get_creditscore()->get_balance() < 100) {
-			std::cout << "Sorry, nicht genug Guthaben :(\n";
-			break;
-		}
-
-		while (pull != 'y' && pull != 'n') {
-			std::cout << "Nochmal ziehen? [y/n]\n";
-			std::cin >> pull;
-			if (pull != 'y' && pull != 'n') {
-				std::cout << messages.ERROR_INVALID_INPUT;
-			}
-		}
-	}
-	*/
 
 	return 0;
 }

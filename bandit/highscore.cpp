@@ -58,10 +58,10 @@ void Highscore::append_new_highscore(Player& player)
 	}
 
 	highscores_out
+		<< player.get_creditscore()->get_balance()
+		<< " - "
 		<< buff
 		<< " - "
 		<< player.get_name()
-		<< " - "
-		<< player.get_creditscore()->get_balance()
 		<< "\n";
 }

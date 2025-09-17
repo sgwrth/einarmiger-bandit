@@ -13,6 +13,7 @@ public:
 	std::string MSG_NOT_ENOUGH_CREDITS;
 	std::string MSG_THANKS_FOR_PLAYING;
 	std::string MSG_BALANCE;
+	std::string MSG_NO_HISCORE;
 };
 
 #endif
