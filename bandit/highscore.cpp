@@ -7,10 +7,13 @@
 #include <string>
 #include <time.h>
 #include <vector>
+#include "hiscore_entry.h"
 #include "player.h"
+#include "util.h"
 
 Highscore::Highscore(std::string filepath_in, std::string filepath_out)
 		: highscores{std::make_shared<std::vector<std::string>>()}
+		, highscores_struct{std::make_shared<std::vector<Hiscore_entry>>()}
 		, highscores_in{filepath_in}
 		, highscores_out(filepath_out, std::ios::app)
 {}
@@ -50,7 +53,7 @@ void Highscore::append_new_highscore(Player& player)
 	}
 
 	char buff[100];
-	int result = strftime(buff, sizeof(buff), "%c", &time_tm);
+	int result = strftime(buff, sizeof(buff), "%Y.%m.%d %H:%M", &time_tm);
 
 	if (result == 0) {
 		std::cout << "some strftime error\n";
@@ -59,9 +62,51 @@ void Highscore::append_new_highscore(Player& player)
 
 	highscores_out
 		<< player.get_creditscore()->get_balance()
-		<< " - "
+		<< ' '
 		<< buff
-		<< " - "
+		<< ' '
 		<< player.get_name()
-		<< "\n";
+		<< '\n';
+}
+
+Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
+{
+	std::vector<std::string> tokens = Util::split(hiscore, ' ');
+
+	return Hiscore_entry{
+		std::stoi(tokens[0]),
+		tokens[1],
+		tokens[2],
+		tokens[3]
+	};
+}
+
+std::string Highscore::write_hiscore(const Hiscore_entry& hiscore)
+{
+	std::string score, date, time, player;
+	score = std::to_string(hiscore.score);
+	date = hiscore.date;
+	time = hiscore.time;
+	player = hiscore.player;
+	return score + ' ' + date + ' ' + time + ' ' + player;
+}
+
+std::vector<Hiscore_entry> Highscore::sort_hiscores(
+		std::vector<Hiscore_entry>& hiscores
+)
+{
+	std::vector<Hiscore_entry> sorted_hiscores;
+
+	while (!hiscores.empty()) {
+		auto max_hiscore{ hiscores.begin() };
+		for (auto it = hiscores.begin(); it != hiscores.end(); ++it) {
+			if (it->score > max_hiscore->score) {
+				max_hiscore = it;
+			}
+		}
+		sorted_hiscores.push_back(*max_hiscore);
+		hiscores.erase(max_hiscore);
+	}
+
+	return sorted_hiscores;
 }

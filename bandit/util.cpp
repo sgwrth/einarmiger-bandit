@@ -2,7 +2,9 @@
 #include <filesystem>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
+#include <vector>
 
 void Util::copy_file(std::ifstream& file_in, std::ofstream& file_out)
 {
@@ -38,4 +40,17 @@ std::string Util::get_str_input()
 void Util::print_msg(const std::string& msg)
 {
 	std::cout << msg;
+}
+
+std::vector<std::string> Util::split(const std::string& str, char delimiter)
+{
+	std::vector<std::string> tokens;
+	std::stringstream ss(str);
+	std::string token;
+
+	while (std::getline(ss, token, delimiter)) {
+		tokens.push_back(token);
+	}
+
+	return tokens;
 }

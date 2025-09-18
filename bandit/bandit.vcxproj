@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="coin.cpp" />
     <ClCompile Include="creditscore.cpp" />
     <ClCompile Include="dollar.cpp" />
     <ClCompile Include="highscore.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="numbergen.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="slot.cpp" />
     <ClCompile Include="slotmachine.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
@@ -143,12 +145,17 @@
     <ClInclude Include="creditscore.h" />
     <ClInclude Include="dollar.h" />
     <ClInclude Include="highscore.h" />
+    <ClInclude Include="hiscore_entry.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="numbergen.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="slot.h" />
     <ClInclude Include="slotmachine.h" />
     <ClInclude Include="util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bandit.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

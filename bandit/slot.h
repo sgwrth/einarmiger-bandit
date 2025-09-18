@@ -3,6 +3,7 @@
 
 class Slot {
 public:
+	Slot();
 	int number;
 };
 

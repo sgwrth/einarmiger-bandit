@@ -2,6 +2,7 @@
 #define UTIL_H
 #include <fstream>
 #include <string>
+#include <vector>
 
 class Util
 {
@@ -14,6 +15,7 @@ public:
 	);
 	static std::string get_str_input();
 	static void print_msg(const std::string& msg);
+	static std::vector<std::string> split(const std::string& str, char delimiter);
 };
 
 #endif
