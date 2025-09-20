@@ -24,6 +24,7 @@
     <ProjectGuid>{cb72c884-77de-4af1-83f0-a8e09e073faa}</ProjectGuid>
     <RootNamespace>bandit</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>BanditLib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,7 +133,6 @@
     <ClCompile Include="creditscore.cpp" />
     <ClCompile Include="dollar.cpp" />
     <ClCompile Include="highscore.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="numbergen.cpp" />
     <ClCompile Include="player.cpp" />

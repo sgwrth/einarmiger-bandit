@@ -65,6 +65,7 @@ namespace BanditTest
 			ofs.close();
 
 			Highscore highscore{ "./test_hiscores.txt", "./temp.txt" };
+
 			highscore.load_hiscores_into_struct();
 			Assert::AreEqual(highscore.highscores_struct->at(0).score, 500);
 			Assert::AreEqual(highscore.highscores_struct->at(1).score, 1500);
@@ -76,6 +77,12 @@ namespace BanditTest
 			Assert::AreEqual(hiscores_sorted[0].score, 1500);
 			Assert::AreEqual(hiscores_sorted[1].score, 1000);
 			Assert::AreEqual(hiscores_sorted[2].score, 500);
+
+			highscore.highscores_in.close();
+			highscore.highscores_out.close();
+
+			std::remove("test_hiscores.txt");
+			std::remove("temp.txt");
 		}
 	};
 }
