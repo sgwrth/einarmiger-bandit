@@ -110,3 +110,11 @@ std::vector<Hiscore_entry> Highscore::sort_hiscores(
 
 	return sorted_hiscores;
 }
+
+void Highscore::load_hiscores_into_struct()
+{
+	std::string line;
+	while (std::getline(highscores_in, line)) {
+		highscores_struct->push_back(read_hiscore(line));
+	}
+}

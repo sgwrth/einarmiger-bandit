@@ -25,6 +25,7 @@ public:
 	static std::vector<Hiscore_entry> sort_hiscores(
 		std::vector<Hiscore_entry>& hiscores
 	);
+	void load_hiscores_into_struct();
 };
 
 #endif
