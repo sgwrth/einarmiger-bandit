@@ -2,8 +2,10 @@
 #include "CppUnitTest.h"
 #include <string>
 #include <iostream>
+#include "../bandit/dollar.h"
 #include "../bandit/highscore.h"
 #include "../bandit/hiscore_entry.h"
+#include "../bandit/player.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -67,22 +69,56 @@ namespace BanditTest
 			Highscore highscore{ "./test_hiscores.txt", "./temp.txt" };
 
 			highscore.load_hiscores_into_struct();
-			Assert::AreEqual(highscore.highscores_struct->at(0).score, 500);
-			Assert::AreEqual(highscore.highscores_struct->at(1).score, 1500);
-			Assert::AreEqual(highscore.highscores_struct->at(2).score, 1000);
+			Assert::AreEqual(500, highscore.highscores_struct->at(0).score);
+			Assert::AreEqual(1500, highscore.highscores_struct->at(1).score);
+			Assert::AreEqual(1000, highscore.highscores_struct->at(2).score);
 			
 			auto hiscores_sorted{
 				Highscore::sort_hiscores(*highscore.highscores_struct)
 			};
-			Assert::AreEqual(hiscores_sorted[0].score, 1500);
-			Assert::AreEqual(hiscores_sorted[1].score, 1000);
-			Assert::AreEqual(hiscores_sorted[2].score, 500);
+			Assert::AreEqual(1500, hiscores_sorted[0].score);
+			Assert::AreEqual(1000, hiscores_sorted[1].score);
+			Assert::AreEqual(500, hiscores_sorted[2].score);
 
 			highscore.highscores_in.close();
 			highscore.highscores_out.close();
 
 			std::remove("test_hiscores.txt");
 			std::remove("temp.txt");
+		}
+
+		TEST_METHOD(Test05AddHiscoreToVector)
+		{
+			std::vector<Hiscore_entry> hiscores;
+			int score{ 1000 };
+			for (int i = 0; i < 10; ++i) {
+				hiscores.push_back(
+					Hiscore_entry{ score, "01.01.1970", "00:00", "Andreas" }
+				);
+				score += 5;
+			}
+
+			Player player("Andreas");
+
+			Highscore highscore("./highscores.txt", "./temp.txt");
+			highscore.highscores_struct
+				= std::make_shared<std::vector<Hiscore_entry>>(hiscores);
+
+			for (int i = 0; i < 20; ++i) {
+				player.insert_coin(std::make_shared<Dollar>());
+			}
+
+			player.get_creditscore()->add_amount_to_balance(
+				player.get_creditscore()->compute_balance()
+			);
+			
+			highscore.add_hiscore_to_vector(player);
+
+			size_t ten = 10;
+			Assert::AreEqual(highscore.highscores_struct->size(), ten);
+			Assert::AreEqual(2000, highscore.highscores_struct->at(0).score);
+			Assert::AreEqual(1030, highscore.highscores_struct->at(4).score);
+			Assert::AreEqual(1005, highscore.highscores_struct->at(9).score);
 		}
 	};
 }

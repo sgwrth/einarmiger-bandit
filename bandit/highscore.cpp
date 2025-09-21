@@ -118,3 +118,45 @@ void Highscore::load_hiscores_into_struct()
 		highscores_struct->push_back(read_hiscore(line));
 	}
 }
+
+Hiscore_entry Highscore::create_hiscore_struct(Player& player)
+{
+	time_t time_t = std::chrono::system_clock::to_time_t(
+		std::chrono::system_clock::now()
+	);
+	struct tm time_tm;
+	errno_t err = localtime_s(&time_tm, &time_t);
+
+	if (err != 0) {
+		std::cout << "some localtime_s error\n";
+	}
+
+	char date[100];
+	char time[100];
+
+	int date_result = strftime(date, sizeof(date), "%Y.%m.%d", &time_tm);
+	int time_result = strftime(time, sizeof(time), "%H:%M", &time_tm);
+
+	if (date_result == 0 || time_result == 0) {
+		std::cout << "some strftime error\n";
+	}
+
+	return Hiscore_entry{
+		player.get_creditscore()->get_balance(),
+		date,
+		time,
+		player.get_name()
+	};
+}
+
+void Highscore::add_hiscore_to_vector(Player& player)
+{
+	highscores_struct->push_back(create_hiscore_struct(player));
+	std::vector<Hiscore_entry> sorted_hiscores
+		= Highscore::sort_hiscores(*highscores_struct);
+	highscores_struct
+		= std::make_shared<std::vector<Hiscore_entry>>(sorted_hiscores);
+	if (highscores_struct->size() == 11) {
+		highscores_struct->pop_back();
+	}
+}

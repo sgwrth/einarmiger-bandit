@@ -26,6 +26,8 @@ public:
 		std::vector<Hiscore_entry>& hiscores
 	);
 	void load_hiscores_into_struct();
+	Hiscore_entry create_hiscore_struct(Player& player);
+	void add_hiscore_to_vector(Player& player);
 };
 
 #endif
