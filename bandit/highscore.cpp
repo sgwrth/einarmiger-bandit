@@ -69,6 +69,7 @@ void Highscore::append_new_highscore(Player& player)
 		<< '\n';
 }
 
+
 Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
 {
 	std::vector<std::string> tokens = Util::split(hiscore, ' ');
@@ -79,6 +80,11 @@ Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
 		tokens[2],
 		tokens[3]
 	};
+}
+
+void Highscore::read_hiscores_from_filestream()
+{
+	
 }
 
 std::string Highscore::write_hiscore(const Hiscore_entry& hiscore)
@@ -158,5 +164,12 @@ void Highscore::add_hiscore_to_vector(Player& player)
 		= std::make_shared<std::vector<Hiscore_entry>>(sorted_hiscores);
 	if (highscores_struct->size() == 11) {
 		highscores_struct->pop_back();
+	}
+}
+
+void Highscore::write_hiscores_to_file() const
+{
+	for (const auto& hiscore : *highscores_struct) {
+		write_hiscore(hiscore);
 	}
 }

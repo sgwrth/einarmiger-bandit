@@ -119,6 +119,52 @@ namespace BanditTest
 			Assert::AreEqual(2000, highscore.highscores_struct->at(0).score);
 			Assert::AreEqual(1030, highscore.highscores_struct->at(4).score);
 			Assert::AreEqual(1005, highscore.highscores_struct->at(9).score);
+
+			std::remove("highscores.txt");
+			std::remove("temp.txt");
+		}
+
+		TEST_METHOD(Test07WriteHiscoresToFile)
+		{
+			std::vector<Hiscore_entry> hiscores;
+			int score{ 1000 };
+			for (int i = 0; i < 10; ++i) {
+				hiscores.push_back(
+					Hiscore_entry{ score, "01.01.1970", "00:00", "Andreas" }
+				);
+				score += 10;
+			}
+
+			Player player("Andreas");
+
+			Highscore highscore("./highscores.txt", "./temp.txt");
+			highscore.highscores_struct
+				= std::make_shared<std::vector<Hiscore_entry>>(hiscores);
+
+			highscore.write_hiscores_to_file();
+
+			highscore.highscores_in.close();
+			highscore.highscores_out.close();
+
+			std::vector<std::string> hiscore_lines;
+			for (const auto& hiscore : *highscore.highscores_struct) {
+				hiscore_lines.push_back(Highscore::write_hiscore(hiscore));
+			}
+
+			std::string line_0_expected{ "1000 01.01.1970 00:00 Andreas" };
+			std::string line_0_actual{ hiscore_lines.at(0) };
+			Assert::AreEqual(line_0_expected, line_0_actual);
+			std::string line_1_expected{ "1010 01.01.1970 00:00 Andreas" };
+			std::string line_1_actual{ hiscore_lines.at(1) };
+			Assert::AreEqual(line_1_expected, line_1_actual);
+			std::string line_2_expected{ "1020 01.01.1970 00:00 Andreas" };
+			std::string line_2_actual{ hiscore_lines.at(2) };
+			Assert::AreEqual(line_2_expected, line_2_actual);
+			std::string line_9_expected{ "1090 01.01.1970 00:00 Andreas" };
+			std::string line_9_actual{ hiscore_lines.at(9) };
+			Assert::AreEqual(line_9_expected, line_9_actual);
+
+			std::remove("./highscores.txt");
 		}
 	};
 }

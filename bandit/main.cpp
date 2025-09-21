@@ -29,7 +29,7 @@ int main()
 	if (p1.get_creditscore()->get_balance() >= 200) {
 		Util::print_msg(messages.MSG_START_GAME);
 		std::cin.get();
-		int pulls_left{20};
+		int pulls_left{ 20 };
 		auto numbergen = Numbergen::get_instance();
 
 		while (pulls_left > 0) {
@@ -60,9 +60,10 @@ int main()
 	const std::string hiscore_temp_filepath = "./hiscore_temp.txt";
 	const std::string hiscore_temp_filename = "hiscore_temp.txt";
 	Highscore highscore_table(hiscore_filepath, hiscore_temp_filepath);
-	highscore_table.read_old_highscores();
-	highscore_table.write_old_highscores();
-	highscore_table.append_new_highscore(p1);
+	//highscore_table.read_old_highscores();
+	//highscore_table.write_old_highscores();
+	//highscore_table.append_new_highscore(p1);
+	highscore_table.load_hiscores_into_struct();
 	highscore_table.highscores_in.close();
 	highscore_table.highscores_out.close();
 	Util::delete_file(hiscore_filepath);
