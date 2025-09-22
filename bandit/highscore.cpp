@@ -84,7 +84,7 @@ Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
 
 void Highscore::read_hiscores_from_filestream()
 {
-	
+
 }
 
 std::string Highscore::write_hiscore(const Hiscore_entry& hiscore)
@@ -167,9 +167,9 @@ void Highscore::add_hiscore_to_vector(Player& player)
 	}
 }
 
-void Highscore::write_hiscores_to_file() const
+void Highscore::write_hiscores_to_file()
 {
 	for (const auto& hiscore : *highscores_struct) {
-		write_hiscore(hiscore);
+		highscores_out << write_hiscore(hiscore) << '\n';
 	}
 }

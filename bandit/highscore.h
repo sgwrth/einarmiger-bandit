@@ -29,7 +29,7 @@ public:
 	void load_hiscores_into_struct();
 	Hiscore_entry create_hiscore_struct(Player& player);
 	void add_hiscore_to_vector(Player& player);
-	void write_hiscores_to_file() const;
+	void write_hiscores_to_file();
 };
 
 #endif

@@ -66,7 +66,7 @@ namespace BanditTest
 				<< "1000 2025.09.17 21:38 Andreas\n";
 			ofs.close();
 
-			Highscore highscore{ "./test_hiscores.txt", "./temp.txt" };
+			Highscore highscore{ "./test_hiscores.txt", "./test_temp.txt" };
 
 			highscore.load_hiscores_into_struct();
 			Assert::AreEqual(500, highscore.highscores_struct->at(0).score);
@@ -84,7 +84,7 @@ namespace BanditTest
 			highscore.highscores_out.close();
 
 			std::remove("test_hiscores.txt");
-			std::remove("temp.txt");
+			std::remove("test_temp.txt");
 		}
 
 		TEST_METHOD(Test05AddHiscoreToVector)
@@ -100,7 +100,7 @@ namespace BanditTest
 
 			Player player("Andreas");
 
-			Highscore highscore("./highscores.txt", "./temp.txt");
+			Highscore highscore("./test_highscores.txt", "./test_temp.txt");
 			highscore.highscores_struct
 				= std::make_shared<std::vector<Hiscore_entry>>(hiscores);
 
@@ -120,11 +120,11 @@ namespace BanditTest
 			Assert::AreEqual(1030, highscore.highscores_struct->at(4).score);
 			Assert::AreEqual(1005, highscore.highscores_struct->at(9).score);
 
-			std::remove("highscores.txt");
-			std::remove("temp.txt");
+			std::remove("test_highscores.txt");
+			std::remove("test_temp.txt");
 		}
 
-		TEST_METHOD(Test07WriteHiscoresToFile)
+		TEST_METHOD(Test06WriteHiscoresToFile)
 		{
 			std::vector<Hiscore_entry> hiscores;
 			int score{ 1000 };
@@ -137,7 +137,7 @@ namespace BanditTest
 
 			Player player("Andreas");
 
-			Highscore highscore("./highscores.txt", "./temp.txt");
+			Highscore highscore("./test_highscores.txt", "./test_temp.txt");
 			highscore.highscores_struct
 				= std::make_shared<std::vector<Hiscore_entry>>(hiscores);
 
@@ -164,7 +164,8 @@ namespace BanditTest
 			std::string line_9_actual{ hiscore_lines.at(9) };
 			Assert::AreEqual(line_9_expected, line_9_actual);
 
-			std::remove("./highscores.txt");
+			std::remove("./test_highscores.txt");
+			std::remove("./test_temp.txt");
 		}
 	};
 }

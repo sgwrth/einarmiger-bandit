@@ -55,15 +55,16 @@ int main()
 		return 0;
 	}
 
-	const std::string hiscore_filepath = "./highscore.txt";
-	const std::string hiscore_filename = "highscore.txt";
-	const std::string hiscore_temp_filepath = "./hiscore_temp.txt";
+	const std::string hiscore_filename = "highscores.txt";
+	const std::string hiscore_filepath = "./" + hiscore_filename;
 	const std::string hiscore_temp_filename = "hiscore_temp.txt";
+	const std::string hiscore_temp_filepath = "./" + hiscore_temp_filename;
 	Highscore highscore_table(hiscore_filepath, hiscore_temp_filepath);
 	//highscore_table.read_old_highscores();
 	//highscore_table.write_old_highscores();
 	//highscore_table.append_new_highscore(p1);
 	highscore_table.load_hiscores_into_struct();
+	highscore_table.write_hiscores_to_file();
 	highscore_table.highscores_in.close();
 	highscore_table.highscores_out.close();
 	Util::delete_file(hiscore_filepath);
