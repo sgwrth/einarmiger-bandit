@@ -14,6 +14,7 @@ public:
 	std::string MSG_THANKS_FOR_PLAYING;
 	std::string MSG_BALANCE;
 	std::string MSG_NO_HISCORE;
+	std::string MSG_YOUR_HIGHSCORES;
 };
 
 #endif

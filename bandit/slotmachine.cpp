@@ -74,9 +74,10 @@ void Slotmachine::spin_slots(std::shared_ptr<Numbergen> numbergen)
 
 void Slotmachine::print_slot_numbers()
 {
+	std::cout << '\n';
 	for (auto i = 0; i < slots.size(); ++i) {
-		std::cout << "[" << slots[i]->number << "]";
-		auto space_or_break = (i < (slots.size() - 1)) ? " " : "\n";
+		std::cout << '[' << slots[i]->number << ']';
+		auto space_or_break = (i < (slots.size() - 1)) ? ' ' : '\n';
 		std::cout << space_or_break;
 	}
 }

@@ -18,58 +18,6 @@ Highscore::Highscore(std::string filepath_in, std::string filepath_out)
 		, highscores_out(filepath_out, std::ios::app)
 {}
 
-void Highscore::read_old_highscores()
-{
-	std::string line;
-	while (std::getline(highscores_in, line)) {
-		highscores->push_back(line);
-	}
-}
-
-void Highscore::print_highscores() const
-{
-	for (const auto& hiscore : *highscores) {
-		std::cout << hiscore << "\n";
-	}
-}
-
-void Highscore::write_old_highscores()
-{
-	for (const auto& hiscore : *highscores) {
-		highscores_out << hiscore << "\n";
-	}
-}
-
-void Highscore::append_new_highscore(Player& player)
-{
-	time_t time
-		= std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	struct tm time_tm;
-	errno_t err = localtime_s(&time_tm, &time);
-
-	if (err != 0) {
-		std::cout << "some localtime_s error\n";
-		return;
-	}
-
-	char buff[100];
-	int result = strftime(buff, sizeof(buff), "%Y.%m.%d %H:%M", &time_tm);
-
-	if (result == 0) {
-		std::cout << "some strftime error\n";
-		return;
-	}
-
-	highscores_out
-		<< player.get_creditscore()->get_balance()
-		<< ' '
-		<< buff
-		<< ' '
-		<< player.get_name()
-		<< '\n';
-}
-
-
 Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
 {
 	std::vector<std::string> tokens = Util::split(hiscore, ' ');
@@ -80,11 +28,6 @@ Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
 		tokens[2],
 		tokens[3]
 	};
-}
-
-void Highscore::read_hiscores_from_filestream()
-{
-
 }
 
 std::string Highscore::write_hiscore(const Hiscore_entry& hiscore)
@@ -157,9 +100,8 @@ Hiscore_entry Highscore::create_hiscore_struct(Player& player)
 
 void Highscore::add_hiscore_to_vector(Player& player)
 {
-	highscores_struct->push_back(create_hiscore_struct(player));
-	std::vector<Hiscore_entry> sorted_hiscores
-		= Highscore::sort_hiscores(*highscores_struct);
+	highscores_struct->push_back(Highscore::create_hiscore_struct(player));
+	auto sorted_hiscores = Highscore::sort_hiscores(*highscores_struct);
 	highscores_struct
 		= std::make_shared<std::vector<Hiscore_entry>>(sorted_hiscores);
 	if (highscores_struct->size() == 11) {
@@ -171,5 +113,12 @@ void Highscore::write_hiscores_to_file()
 {
 	for (const auto& hiscore : *highscores_struct) {
 		highscores_out << write_hiscore(hiscore) << '\n';
+	}
+}
+
+void Highscore::print_hiscores() const
+{
+	for (const auto& hiscore : *highscores_struct) {
+		std::cout << Highscore::write_hiscore(hiscore) << '\n';
 	}
 }

@@ -164,8 +164,8 @@ namespace BanditTest
 			std::string line_9_actual{ hiscore_lines.at(9) };
 			Assert::AreEqual(line_9_expected, line_9_actual);
 
-			std::remove("./test_highscores.txt");
-			std::remove("./test_temp.txt");
+			//std::remove("./test_highscores.txt");
+			//std::remove("./test_temp.txt");
 		}
 	};
 }

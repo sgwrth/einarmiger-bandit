@@ -3,6 +3,7 @@
 #include "coin.h"
 #include "dollar.h"
 #include "highscore.h"
+#include "hiscore_entry.h"
 #include "messages.h"
 #include "numbergen.h"
 #include "player.h"
@@ -60,16 +61,15 @@ int main()
 	const std::string hiscore_temp_filename = "hiscore_temp.txt";
 	const std::string hiscore_temp_filepath = "./" + hiscore_temp_filename;
 	Highscore highscore_table(hiscore_filepath, hiscore_temp_filepath);
-	//highscore_table.read_old_highscores();
-	//highscore_table.write_old_highscores();
-	//highscore_table.append_new_highscore(p1);
 	highscore_table.load_hiscores_into_struct();
+	highscore_table.add_hiscore_to_vector(p1);
 	highscore_table.write_hiscores_to_file();
 	highscore_table.highscores_in.close();
 	highscore_table.highscores_out.close();
+	Util::print_msg(messages.MSG_YOUR_HIGHSCORES);
+	highscore_table.print_hiscores();
 	Util::delete_file(hiscore_filepath);
 	Util::rename_file(hiscore_temp_filepath, hiscore_filename);
 	Util::print_msg(messages.MSG_THANKS_FOR_PLAYING);
-
 	return 0;
 }
