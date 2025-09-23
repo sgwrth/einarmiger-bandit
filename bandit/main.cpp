@@ -71,5 +71,7 @@ int main()
 	Util::delete_file(hiscore_filepath);
 	Util::rename_file(hiscore_temp_filepath, hiscore_filename);
 	Util::print_msg(messages.MSG_THANKS_FOR_PLAYING);
+	Util::print_msg(messages.MSG_ENTER_TO_EXIT);
+	std::cin.get();
 	return 0;
 }

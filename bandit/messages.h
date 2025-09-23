@@ -15,6 +15,7 @@ public:
 	std::string MSG_BALANCE;
 	std::string MSG_NO_HISCORE;
 	std::string MSG_YOUR_HIGHSCORES;
+	std::string MSG_ENTER_TO_EXIT;
 };
 
 #endif
