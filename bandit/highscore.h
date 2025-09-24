@@ -12,7 +12,6 @@ class Highscore
 {
 public:
 	Highscore(std::string highscores_file_in, std::string highscores_file_out);
-	std::shared_ptr<std::vector<std::string>> highscores;
 	std::shared_ptr<std::vector<Hiscore_entry>> highscores_struct;
 	std::ifstream highscores_in;
 	std::ofstream highscores_out;

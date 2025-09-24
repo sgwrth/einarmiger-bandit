@@ -9,11 +9,12 @@
 #include "slot.h"
 
 Slotmachine::Slotmachine()
-		: slots{
-				std::make_shared<Slot>(),
-				std::make_shared<Slot>(),
-				std::make_shared<Slot>()
-		} {}
+	: slots{
+		std::make_shared<Slot>(),
+		std::make_shared<Slot>(),
+		std::make_shared<Slot>()
+	}
+{}
 
 void Slotmachine::offer_to_buy_credits(Player& player) {
 	char option{};
@@ -55,13 +56,20 @@ void Slotmachine::offer_to_buy_credits(Player& player) {
 
 Slotmachine::Result Slotmachine::get_result()
 {
-	if (slots[2]->number == slots[1]->number
-			&& slots[1]->number == slots[0]->number) {
+	int no_1 = slots[0]->number;
+	int no_2 = slots[1]->number;
+	int no_3 = slots[2]->number;
+	bool three_of_a_kind = no_3 == no_2 && no_2 == no_1;
+	bool first_two_of_a_kind = no_2 == no_1;
+
+	if (three_of_a_kind) {
 		return Result::WIN;
 	}
-	if (slots[1]->number == slots[0]->number) {
+
+	if (first_two_of_a_kind) {
 		return Result::MONEY_BACK;
 	}
+
 	return Result::LOSE;
 }
 

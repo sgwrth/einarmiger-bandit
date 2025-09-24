@@ -12,10 +12,9 @@
 #include "util.h"
 
 Highscore::Highscore(std::string filepath_in, std::string filepath_out)
-		: highscores{std::make_shared<std::vector<std::string>>()}
-		, highscores_struct{std::make_shared<std::vector<Hiscore_entry>>()}
-		, highscores_in{filepath_in}
-		, highscores_out(filepath_out, std::ios::app)
+	: highscores_struct{std::make_shared<std::vector<Hiscore_entry>>()}
+	, highscores_in{filepath_in}
+	, highscores_out(filepath_out, std::ios::app)
 {}
 
 Hiscore_entry Highscore::read_hiscore(const std::string& hiscore)
@@ -48,11 +47,13 @@ std::vector<Hiscore_entry> Highscore::sort_hiscores(
 
 	while (!hiscores.empty()) {
 		auto max_hiscore{ hiscores.begin() };
+
 		for (auto it = hiscores.begin(); it != hiscores.end(); ++it) {
 			if (it->score > max_hiscore->score) {
 				max_hiscore = it;
 			}
 		}
+
 		sorted_hiscores.push_back(*max_hiscore);
 		hiscores.erase(max_hiscore);
 	}
@@ -63,6 +64,7 @@ std::vector<Hiscore_entry> Highscore::sort_hiscores(
 void Highscore::load_hiscores_into_struct()
 {
 	std::string line;
+
 	while (std::getline(highscores_in, line)) {
 		highscores_struct->push_back(read_hiscore(line));
 	}
@@ -70,24 +72,18 @@ void Highscore::load_hiscores_into_struct()
 
 Hiscore_entry Highscore::create_hiscore_struct(Player& player)
 {
-	time_t time_t = std::chrono::system_clock::to_time_t(
-		std::chrono::system_clock::now()
-	);
-	struct tm time_tm;
-	errno_t err = localtime_s(&time_tm, &time_t);
-
-	if (err != 0) {
-		std::cout << "some localtime_s error\n";
+	struct tm time_tm = Util::get_time_tm();
+	if (time_tm.tm_year == 0) {
+		std::cerr << "some localtime_s error\n";
 	}
 
 	char date[100];
 	char time[100];
-
 	int date_result = strftime(date, sizeof(date), "%Y.%m.%d", &time_tm);
 	int time_result = strftime(time, sizeof(time), "%H:%M", &time_tm);
 
 	if (date_result == 0 || time_result == 0) {
-		std::cout << "some strftime error\n";
+		std::cerr << "some strftime error\n";
 	}
 
 	return Hiscore_entry{
@@ -104,6 +100,7 @@ void Highscore::add_hiscore_to_vector(Player& player)
 	auto sorted_hiscores = Highscore::sort_hiscores(*highscores_struct);
 	highscores_struct
 		= std::make_shared<std::vector<Hiscore_entry>>(sorted_hiscores);
+
 	if (highscores_struct->size() == 11) {
 		highscores_struct->pop_back();
 	}

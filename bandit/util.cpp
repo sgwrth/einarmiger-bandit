@@ -54,3 +54,19 @@ std::vector<std::string> Util::split(const std::string& str, char delimiter)
 
 	return tokens;
 }
+
+struct tm Util::get_time_tm()
+{
+	auto now = std::chrono::system_clock::now();
+	auto time_t = std::chrono::system_clock::to_time_t(now);
+	struct tm time_tm;
+
+	/*
+	 * As per https://en.cppreference.com/w/c/chrono/localtime:
+	 * "The implementation of localtime_s in Microsoft CRT is incompatible
+	 * with the C standard since it has reversed parameter order and
+	 * returns errno_t."
+	 */
+	auto err = localtime_s(&time_tm, &time_t); /* TODO: Handle error. */
+	return time_tm;
+}

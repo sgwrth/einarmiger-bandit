@@ -16,6 +16,7 @@ public:
 	static std::string get_str_input();
 	static void print_msg(const std::string& msg);
 	static std::vector<std::string> split(const std::string& str, char delimiter);
+	static struct tm get_time_tm();
 };
 
 #endif
